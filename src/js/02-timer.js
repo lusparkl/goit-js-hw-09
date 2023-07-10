@@ -25,7 +25,13 @@ const dataUrl = document.querySelector('#datetime-picker');
 const dataPicker = flatpickr(dataUrl, options);
 
 refs.startBtn.addEventListener('click', () => {
-    setInterval(() => {
+    refs.startBtn.setAttribute('disabled', '');
+    const intervalId = setInterval(() => {
+        if (ms < 1000) {
+            Notify.failure('Твій час вийшов');
+            clearInterval(intervalId);
+        }
+        
         render(convertMs(ms));
         ms -= 1000;
     }, 1000)
