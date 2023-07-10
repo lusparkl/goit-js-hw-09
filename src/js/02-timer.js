@@ -6,7 +6,7 @@ import render from "./modules/render";
 import convertMs from "./modules/convertMs";
 
 let ms;
-options = {
+const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
