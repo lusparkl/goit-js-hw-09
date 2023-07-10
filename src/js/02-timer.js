@@ -3,7 +3,7 @@ import { Notify } from "notiflix";
 import "flatpickr/dist/flatpickr.min.css";
 import refs from './modules/refs';
 import render from "./modules/render";
-import convertMs from "./modules/convertMs";
+import { convertMs } from "./modules/convertMs";
 
 let ms;
 const options = {
@@ -13,8 +13,8 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
         const currentDate = new Date();
-        ms = currentDate - selectedDates[0];
-        if (ms < 0) {
+        ms = selectedDates[0] - currentDate;
+        if (ms > 0) {
             refs.startBtn.removeAttribute('disabled');
         } else {
             Notify.failure('please set date in future');
@@ -25,10 +25,9 @@ const dataUrl = document.querySelector('#datetime-picker');
 const dataPicker = flatpickr(dataUrl, options);
 
 refs.startBtn.addEventListener('click', () => {
-    refs.startBtn.setAttribute('disabled', '');
-    const intervalId = setInterval(() => {
-        ms += 1000;
+    setInterval(() => {
         render(convertMs(ms));
+        ms -= 1000;
     }, 1000)
 })
 
