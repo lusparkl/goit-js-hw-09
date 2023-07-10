@@ -1,3 +1,4 @@
+import refs from './refs';
 import addLeadingZero from './addLeadingZero';
 
 export default function render({ days, hours, minutes, seconds }) {
